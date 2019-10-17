@@ -6,7 +6,10 @@ import Notification, { notify } from '../components/notifications/notification'
 
 function App() {
   return (
+    <React.Fragment>
+      <button onClick={() => notify('het werrrkt')}>click me</button>
       <Notification />
+    </React.Fragment>
   );
 }
 

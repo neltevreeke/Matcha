@@ -11,15 +11,20 @@ import ee from 'EventEmitter'
 
 
 const Container = styled.div`
-    background-color: #444;
+    background: linear-gradient(45deg, #f2be82 0%,#eda753 10%,#ff5656 100%);
     border-radius: 3px;
     color: white;
     padding: 16px;
-    position: absolute;
+    position: fixed;
     right: ${props => props.right}px;
     top: 16px;
     z-index: 999;
     transition: right 0.5s ease;
+    font-weight: 500;
+
+    > i {
+        margin-left: 10px;
+    }
 `;
 
 const emitter = new ee();
@@ -76,7 +81,7 @@ export default class Notification extends Component {
     render() {
         return (
             <Container right={this.state.right}>
-                {this.state.message}
+                {this.state.message}<i className='fa fa-bell'></i>
             </Container>
         )
     }
