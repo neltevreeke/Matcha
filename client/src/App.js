@@ -1,35 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import Navbar from './components/navbar/navbar'
+import Header from './components/header/header'
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { apiResonse: ''}
-  }
+export default () => {
+  // const [response, setResponse] = useState();
 
-  callAPI() {
-    fetch('http://localhost:9000/testAPI')
-      .then(res => res.text())
-      .then(res => this.setState({ apiResonse: res}))
-      .catch(err => err)
-  }
+  // const callApi = () => {
+  //   fetch('http://localhost:9000/users')
+  //     .then(res => res.text())
+  //     .then(res => setResponse(res))
+  //     .catch(err => err)
+  // }
 
-  componentDidMount() {
-    this.callAPI();
-  }
+  // useEffect(() => {
+  //   callApi();
+  // }, [])
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-intro">Welcome to Reacte</h1>
-        </header>
-        <p className="App-intro">{this.state.apiResonse}</p>
-      </div>
-    )
-  }
+  return (
+    <>
+      <Navbar />
+      <Header />
+    </>
+  )
 }
-
-export default App;
