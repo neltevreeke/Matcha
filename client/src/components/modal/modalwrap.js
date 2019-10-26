@@ -3,9 +3,21 @@ import styled from 'styled-components'
 import ReactDOM from 'react-dom'
 import Headline from '../headline/headline'
 
-const Modal = styled.div`
+const ModalContainer = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000a8;
     position: fixed;
-    top: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    z-index: 10;
+`
+
+const Modal = styled.div`
+    position: relative;
     background-color: white;
     border-radius: 3px;
     width: 384px;
@@ -26,7 +38,13 @@ const ModalHeader = styled.div`
         margin-left: auto;
         color: white;
         cursor: pointer;
+        font-size: 24px;
     }
+`
+
+const ModalHeadline = styled(Headline)`
+    position: absolute;
+    margin: 0;
 `
 
 const ModalContent = styled.div`
@@ -36,15 +54,17 @@ const ModalContent = styled.div`
 const ModalWrap = ({title, hide, children}) => {
 
     return ReactDOM.createPortal(
-        <Modal>
-            <ModalHeader>
-                <Headline color={'white'} text={title} />
-                <i onClick={hide} className='fa fa-times'></i>
-            </ModalHeader>
-            <ModalContent>
-                {children}
-            </ModalContent>
-        </Modal>,
+        <ModalContainer>
+            <Modal>
+                <ModalHeader>
+                    <ModalHeadline color={'white'} text={title} />
+                    <i onClick={hide} className='fa fa-times'></i>
+                </ModalHeader>
+                <ModalContent>
+                    {children}
+                </ModalContent>
+            </Modal>
+        </ModalContainer>,
         document.getElementById('modal-root')
     )
 }

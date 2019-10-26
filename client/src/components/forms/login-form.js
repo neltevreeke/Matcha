@@ -6,6 +6,11 @@ const FormWrapper = styled.form`
     display: flex;
     flex-direction: column;
 
+    > button {
+        width: 40%;
+        align-self: center;
+    }
+
     > input[type=email], input[type=text], input[type=password] {
         border: 2px solid #C4C4C4;
         border-radius: 3px;
@@ -21,7 +26,6 @@ const FormWrapper = styled.form`
         border: 2px solid #63D397;
         transition: ease-in 0.2s;
     }
-
 `
 
 const Label = styled.label`
@@ -31,7 +35,7 @@ const Label = styled.label`
     margin-bottom: 8px;
 `
 
-const Form = (props) => {
+const LoginForm = (props) => {
 
     return (
         <FormWrapper>
@@ -43,7 +47,6 @@ const Form = (props) => {
             <Button type={'submit'} color={'white'} backgroundColor={'#63D397'}>submit</Button>
         </FormWrapper>
     )
-
 }
 
-export default Form
+export default LoginForm
