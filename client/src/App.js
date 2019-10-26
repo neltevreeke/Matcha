@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import Navbar from './components/navbar/navbar'
-import Header from './components/header/header'
+import React from 'react'
+import LandingPage from './components/pages/landingpage/landingpage'
 
 export default () => {
   // const [response, setResponse] = useState();
@@ -18,8 +17,7 @@ export default () => {
 
   return (
     <>
-      <Navbar />
-      <Header />
+      <LandingPage />
     </>
   )
 }

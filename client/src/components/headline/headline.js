@@ -7,6 +7,7 @@ const Headline = styled.h2`
     align-items: center;
     font-weight: bold;
     font-size: ${props => props.fontSize};
+    text-transform: lowercase;
 `
 
 export default (props) => {

@@ -1,21 +1,16 @@
-import React from 'react'
 import styled from 'styled-components'
 
-const Button = styled.div`
-    background: ${props => props.background}
+const Button = styled.button`
+    background: ${props => props.backgroundColor ? props.backgroundColor : 'none'};
     border-radius: 3px;
-    border: 2px solid ${props => props.borderColor};
+    border: ${props => props.border ? '2px solid white' : 'none'};
     padding: 14px 30px;
     color: ${props => props.color};
     font-weight: bold;
-    text-decoration: none;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    text-transform: lowercase;
 `
 
-export default (props) => {
-
-    return (
-        <Button color={props.color} background={props.background} borderColor={props.borderColor}>
-            {props.text}
-        </Button>
-    )
-}
+export default Button
