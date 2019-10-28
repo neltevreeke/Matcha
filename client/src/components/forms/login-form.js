@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../button/button'
 import styled from 'styled-components'
+import { useFormik } from 'formik'
 
 const FormWrapper = styled.form`
     display: flex;
@@ -35,14 +36,69 @@ const Label = styled.label`
     margin-bottom: 8px;
 `
 
+const ErrorBox = styled.div`
+    width: auto;
+    color: red;
+    margin-top: -10px;
+    margin-bottom: 16px;
+`
+
+const validate = values => {
+    const errors = {}
+
+    if (!values.email) {
+        errors.email = 'Email required'
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email'
+    }
+
+    if (!values.password) {
+        errors.password = 'Password required'
+    }
+
+    return errors
+}
+
 const LoginForm = (props) => {
 
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: ''
+        },
+        validate,
+        onSubmit: values => {
+            alert(JSON.stringify(values, null, 2))
+
+            // add onSumbit functionality to back-end
+        },
+    })
+
     return (
-        <FormWrapper>
-            <Label>Email</Label>
-            <input type='email' placeholder='example@example.com' />
-            <Label>Password</Label>
-            <input type='password' placeholder='password' />
+        <FormWrapper onSubmit={formik.handleSubmit}>
+            <Label htmlFor='email'>Email</Label>
+            <input
+                name='email'
+                type='email' 
+                placeholder='example@example.com'
+                id='loginEmailInput'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
+            />
+            {formik.touched.email && formik.errors.email ? <ErrorBox>{formik.errors.email}</ErrorBox> : null}
+
+            <Label htmlFor='password'>Password</Label>
+            <input 
+                name='password'
+                type='password' 
+                placeholder='password'
+                id='loginPasswordInput'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
+            />
+            {formik.touched.password && formik.errors.password ? <ErrorBox>{formik.errors.password}</ErrorBox> : null}
 
             <Button type={'submit'} color={'white'} backgroundColor={'#63D397'}>submit</Button>
         </FormWrapper>
