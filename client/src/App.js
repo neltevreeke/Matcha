@@ -1,23 +1,16 @@
 import React from 'react'
-import LandingPage from './components/pages/landingpage/landingpage'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import LandingPage from './components/pages/landingpage'
+import Dashboard from './components/pages/dashboard'
 
 export default () => {
-  // const [response, setResponse] = useState();
-
-  // const callApi = () => {
-  //   fetch('http://localhost:9000/users')
-  //     .then(res => res.text())
-  //     .then(res => setResponse(res))
-  //     .catch(err => err)
-  // }
-
-  // useEffect(() => {
-  //   callApi();
-  // }, [])
 
   return (
-    <>
-      <LandingPage />
-    </>
+      <Router>
+        <Switch>
+          <Route exact path='/' component={LandingPage} />
+          <Route path='/dashboard' component={Dashboard} />
+        </Switch>
+      </Router>
   )
 }

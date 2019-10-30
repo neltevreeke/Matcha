@@ -45,10 +45,16 @@ const ErrorBox = styled.div`
 const validate = values => {
     const errors = {}
 
-    if (!values.username) {
-        errors.username = 'Username required'
-    } else if (values.username > 10) {
-        errors.username = 'Must be 10 characters or less'
+    if (!values.firstName) {
+        errors.firstName = 'First name required'
+    } else if (values.firstName > 10) {
+        errors.firstName = 'Must be 10 characters or less'
+    }
+
+    if (!values.lastName) {
+        errors.lastName = 'Last name required'
+    } else if (values.lastName > 10) {
+        errors.lastName = 'Must be 10 characters or less'
     }
 
     if (!values.email) {
@@ -65,7 +71,7 @@ const validate = values => {
 
     if (!values.repeatPassword) {
         errors.repeatPassword = 'Repeated password required'
-    } else if (values.repeatPassword != values.password) {
+    } else if (values.repeatPassword !== values.password) {
         errors.repeatPassword = 'Passwords do not match'
     }
 
@@ -76,32 +82,51 @@ const SignupForm = (props) => {
 
     const formik = useFormik({
         initialValues: {
-            username: '',
+            firstName: '',
+            lastName: '',
             email: '',
             password: '',
-            repeatPassword: ''
+            repeatPassword: '',
         },
         validate,
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2))
+        onSubmit: async values => {
+            const res = await fetch('http://localhost:9000/user/signup', {
+                method: 'POST',
+                body: JSON.stringify(values),
+            })
+            .then(res => res.text())
+            .then(res => console.log(res))
+            // .catch(err => err)
 
-            // add onSumbit functionality to back-end
+            console.log(res)
         },
     })
 
     return (
         <FormWrapper onSubmit={formik.handleSubmit}>
-            <Label htmlFor='username'>Username</Label>
+            <Label htmlFor='firstName'>First name</Label>
             <input 
-                name='username'
+                name='firstName'
                 type='text' 
-                placeholder='anonymous' 
-                id='registerUsernameInput'
+                placeholder='Theresa' 
+                id='registerFirstNameInput'
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.username}
+                value={formik.values.firstName}
             />
-            {formik.touched.username && formik.errors.username ? <ErrorBox>{formik.errors.username}</ErrorBox> : null}
+            {formik.touched.firstName && formik.errors.firstName ? <ErrorBox>{formik.errors.firstName}</ErrorBox> : null}
+
+            <Label htmlFor='lastName'>Last name</Label>
+            <input 
+                name='lastName'
+                type='text' 
+                placeholder='Williams' 
+                id='registerLastNameInput'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.lastName}
+            />
+            {formik.touched.lastName && formik.errors.lastName ? <ErrorBox>{formik.errors.lastName}</ErrorBox> : null}
 
             <Label htmlFor='email'>Email</Label>
             <input 
