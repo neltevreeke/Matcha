@@ -8,7 +8,6 @@ const FormWrapper = styled.form`
     flex-direction: column;
 
     > button {
-        width: 40%;
         align-self: center;
     }
 
@@ -91,14 +90,15 @@ const SignupForm = (props) => {
         validate,
         onSubmit: async values => {
             const res = await fetch('http://localhost:9000/user/signup', {
-                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'Accept': 'application/json'
+                },
                 body: JSON.stringify(values),
+                method: 'POST'
             })
-            .then(res => res.text())
+            .then(res => res.json())
             .then(res => console.log(res))
-            // .catch(err => err)
-
-            console.log(res)
         },
     })
 

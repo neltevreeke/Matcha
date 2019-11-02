@@ -8,7 +8,6 @@ const FormWrapper = styled.form`
     flex-direction: column;
 
     > button {
-        width: 40%;
         align-self: center;
     }
 

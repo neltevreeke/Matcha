@@ -3,13 +3,16 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  console.log(res.body)
   res.send('respond with a resource');
 });
 
-router.get('/signup', (req, res) => {
-  res.send(JSON.parse(req))
-  console.log('signuppp')
+router.post('/signup', (req, res) => {
+  const user = req.body
+  console.log(user.firstName)
+  
+  res.send({
+    message: true
+  })
 })
 
 module.exports = router;
