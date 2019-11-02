@@ -98,7 +98,8 @@ const SignupForm = (props) => {
                 method: 'POST'
             })
             .then(res => res.json())
-            .then(res => console.log(res))
+            
+            console.log(res)
         },
     })
 

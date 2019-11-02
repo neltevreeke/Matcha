@@ -4,11 +4,43 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var DATABASE_URL = 'mongodb://localhost:27017/';
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
+var mongoose = require('mongoose');
+var UserModel = require('./models/User');
 
 var app = express();
+
+const connectDB = () => {
+  return mongoose.connect('mongodb://localhost:27017', { useNewUrlParser: true })
+}
+
+const eraseDatabaseOnSync = true;
+
+connectDB()
+  .then(async () => {
+    if (eraseDatabaseOnSync) {
+      await Promise.all([
+        UserModel.deleteMany({})
+      ])
+
+      createStandardUser();
+    }
+  })
+
+const createStandardUser = async () => {
+  const standardUser = new UserModel({
+    firstName: 'Nelte',
+    lastName: 'Vreeke',
+    email: 'nelte.p.vreeke@gmail.com',
+    password: 'lollol',
+    age: 25
+  })
+
+  await standardUser.save();
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
