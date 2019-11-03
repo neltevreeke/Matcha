@@ -95,6 +95,9 @@ const SignupForm = (props) => {
         },
         validate,
         onSubmit: async (values, { setFieldValue, setStatus }) => {
+            // encrypt password
+
+
             axios.post('http://localhost:9000/user/signup', {
                 values
             })
