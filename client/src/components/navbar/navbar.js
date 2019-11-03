@@ -31,7 +31,7 @@ export default () => {
                     toggle={show => <Button onClick={show} color={'white'} border={false}>log in</Button>}
                     content={hide => (
                         <Modal title='log in' hide={hide}>
-                            <LoginForm />
+                            <LoginForm hide={hide} />
                         </Modal>
                     )}
                 />
@@ -40,7 +40,7 @@ export default () => {
                     toggle={show => <Button onClick={show} color={'white'} border={true}>sign up</Button>}
                     content={hide => (
                         <Modal title='sign up' hide={hide}>
-                            <SignupForm />
+                            <SignupForm hide={hide} />
                         </Modal>
                     )}
                 />

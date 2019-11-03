@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Button from '../button/button'
 import { useFormik } from 'formik'
+import axios from 'axios'
 
 const FormWrapper = styled.form`
     display: flex;
@@ -11,7 +12,7 @@ const FormWrapper = styled.form`
         align-self: center;
     }
 
-    > input[type=email], input[type=text], input[type=password] {
+    > input[type=email], input[type=text], input[type=password], input[type=number] {
         border: 2px solid #C4C4C4;
         border-radius: 3px;
         outline: none;
@@ -64,7 +65,7 @@ const validate = values => {
 
     if (!values.password) {
         errors.password = 'Password required'
-    } else if (values.password < 7) {
+    } else if (values.password.length < 7) {
         errors.password = 'Must be 7 characters or more'
     }
 
@@ -72,6 +73,10 @@ const validate = values => {
         errors.repeatPassword = 'Repeated password required'
     } else if (values.repeatPassword !== values.password) {
         errors.repeatPassword = 'Passwords do not match'
+    }
+
+    if (!values.age) {
+        errors.age = 'Age is required'
     }
 
     return errors
@@ -86,20 +91,20 @@ const SignupForm = (props) => {
             email: '',
             password: '',
             repeatPassword: '',
+            age: ''
         },
         validate,
-        onSubmit: async values => {
-            const res = await fetch('http://localhost:9000/user/signup', {
-                headers: {
-                    'content-type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(values),
-                method: 'POST'
+        onSubmit: async (values, { setFieldValue, setStatus }) => {
+            axios.post('http://localhost:9000/user/signup', {
+                values
             })
-            .then(res => res.json())
-            
-            console.log(res)
+            .then(() => {
+                props.hide()
+            })
+            .catch(() => {
+                setStatus(values.email + ' already exists')
+                setFieldValue('email', '')
+            })
         },
     })
 
@@ -140,6 +145,7 @@ const SignupForm = (props) => {
                 value={formik.values.email}
             />
             {formik.touched.email && formik.errors.email ? <ErrorBox>{formik.errors.email}</ErrorBox> : null}
+            {formik.touched.email && formik.status ? <ErrorBox>{formik.status}</ErrorBox> : null}
 
             <Label htmlFor='password'>Password</Label>
             <input
@@ -164,6 +170,20 @@ const SignupForm = (props) => {
                 value={formik.values.repeatPassword}
             />
             {formik.touched.repeatPassword && formik.errors.repeatPassword ? <ErrorBox>{formik.errors.repeatPassword}</ErrorBox> : null}
+
+            <Label htmlFor='age'>Age</Label>
+            <input
+                name='age'
+                type='number'
+                placeholder='27'
+                id='registerAgeInput'
+                min='18'
+                max='99'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.age}
+            />
+            {formik.touched.age && formik.errors.age ? <ErrorBox>{formik.errors.age}</ErrorBox> : null}
 
             <Button type={'submit'} color={'white'} backgroundColor={'#63D397'}>submit</Button>
         </FormWrapper>

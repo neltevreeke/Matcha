@@ -14,17 +14,31 @@ test.exec()
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  // res.send(test);
+router.get('/', function (req, res, next) {
 
-  res.send('respond with a resource');
-});
+  res.send('respond with a resource')
+})
 
-router.post('/signup', (req, res) => {
+router.post('/signup', async (req, res) => {
+  try {
+    await User.create({
+      firstName: req.body.values.firstName,
+      lastName: req.body.values.lastName,
+      email: req.body.values.email,
+      password: req.body.values.password,
+      age: req.body.values.age
+    })
 
-  res.send({
-    message: true
-  })
+    res.status(201).send({
+      success: true,
+      message: 'User created succesfully'
+    })
+  } catch (err) {
+    res.status(409).send({
+      success: false,
+      message: err.keyPattern
+    })
+  }
 })
 
 module.exports = router;
