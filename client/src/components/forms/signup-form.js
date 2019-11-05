@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Button from '../button/button'
 import { useFormik } from 'formik'
 import axios from 'axios'
-import bcrypt from 'bcryptjs'
 
 const FormWrapper = styled.form`
     display: flex;
@@ -96,10 +95,6 @@ const SignupForm = props => {
         },
         validate,
         onSubmit: async (values, { setFieldValue, setStatus }) => {
-            const salt = bcrypt.genSaltSync(10)
-            const hash = bcrypt.hashSync(values.password, salt)
-            values.password = hash;
-
             axios.post('http://localhost:9000/user/signup', {
                 values
             })

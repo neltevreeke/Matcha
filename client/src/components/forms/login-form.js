@@ -62,23 +62,30 @@ const validate = values => {
 const LoginForm = props => {
 
     const formik = useFormik({
+         
         initialValues: {
             email: '',
             password: ''
         },
         validate,
-        onSubmit: (values, { setStatus, setFieldValue}) => {
+        onSubmit: (values, { setStatus, setFieldValue }) => {
             axios.post('http://localhost:9000/user/login', {
                 values
             })
-            .then(() => {
-                props.hide()
+            .then(res => {
+                localStorage.setItem('jwt', res.data.token)
                 document.location.href = 'http://localhost:3000/dashboard'
             })
-            .catch(() => {
-                setStatus('Invalid email or password')
-                setFieldValue('email', '')
-                setFieldValue('password', '')
+            .catch(err => {
+                if (err.response.data.message === 'Internal server error') {
+                    setStatus('Oops, something went wrong...')
+                }
+
+                if (err.response.data.message !== 'Internal server error') {
+                    setStatus('Invalid email or password')
+                    setFieldValue('email', '', false)
+                    setFieldValue('password', '', false)
+                }
             })
         },
     })

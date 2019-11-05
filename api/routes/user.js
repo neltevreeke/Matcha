@@ -3,36 +3,25 @@ var router = express.Router();
 var mongoose = require('mongoose')
 var User = require('../models/User')
 var bcrypt = require('bcryptjs')
-
-/* HOW THE MODEL WORKS
-
-var test = User.find({ firstName: 'Nelte'});
-test.exec()
-.then(test => {
-  console.log(test)
-})
-*/
+var jwt = require('jsonwebtoken')
 
 
-/* GET users listing. */
 router.get('/', function (req, res, next) {
 
   res.send('respond with a resource')
 })
 
 router.post('/signup', async (req, res) => {
+  const salt = bcrypt.genSaltSync(10)
+  const hash = bcrypt.hashSync(req.body.values.password, salt)
+
   try {
     await User.create({
       firstName: req.body.values.firstName,
       lastName: req.body.values.lastName,
       email: req.body.values.email,
-      password: req.body.values.password,
+      password: hash,
       age: req.body.values.age
-    })
-
-    res.status(201).send({
-      success: true,
-      message: 'User created succesfully'
     })
   } catch (err) {
     res.status(409).send({
@@ -40,41 +29,45 @@ router.post('/signup', async (req, res) => {
       message: err.keyPattern
     })
   }
+
+  res.status(201).send({
+    message: 'User created succesfully'
+  })
 })
 
 router.post('/login', async (req, res) => {
-  try {
-    const foundUser = await User.findOne({
-      'email': req.body.values.email
-    })
+    let foundUser;
+
+    console.log('hereeeeeeeeeeeeeeeeeeeee')
+
+    try {
+      foundUser = await User.findOne({
+        'email': req.body.values.email
+      })
+    } catch (err) {
+      res.status(500).send({
+        message: 'Internal server error'
+      });
+    }
 
     if (!foundUser) {
       res.status(404).send({
-        success: false,
         message: 'Email does not exist'
       })
     }
 
     if (!bcrypt.compareSync(req.body.values.password, foundUser.password)) {
       res.status(409).send({
-        success: false,
         message: 'Passwords do not match'
       })
     }
-    
-    // generate jwt
+
+    const token = jwt.sign(foundUser.toJSON(), process.env.JWT_SECRET)
 
     res.status(200).send({
-      success: true,
-      message: 'log in successfull'
-      // token
+      message: 'log in successfull',
+      token
     })
-  } catch (err) {
-    console.error(err)
-
-    // return an error
-
-  }
 })
 
 module.exports = router;

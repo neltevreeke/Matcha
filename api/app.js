@@ -14,6 +14,8 @@ var bcrypt = require('bcryptjs')
 
 var app = express();
 
+require('dotenv').config()
+
 const connectDB = () => {
   return mongoose.connect('mongodb://localhost:27017', { useNewUrlParser: true })
 }
