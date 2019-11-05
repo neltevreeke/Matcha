@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '../button/button'
 import styled from 'styled-components'
 import { useFormik } from 'formik'
+import axios from 'axios'
 
 const FormWrapper = styled.form`
     display: flex;
@@ -67,9 +68,11 @@ const LoginForm = (props) => {
         },
         validate,
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2))
-
-            // add onSumbit functionality to back-end
+            axios.post('http://localhost:9000/user/login', {
+                values
+            })
+            .then(res => res.json())
+            .then(res => console.log(res))
         },
     })
 
