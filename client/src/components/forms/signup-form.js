@@ -83,7 +83,7 @@ const validate = values => {
     return errors
 }
 
-const SignupForm = (props) => {
+const SignupForm = props => {
 
     const formik = useFormik({
         initialValues: {

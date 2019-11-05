@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose')
 var User = require('../models/User')
+var bcrypt = require('bcryptjs')
 
 /* HOW THE MODEL WORKS
 
@@ -42,10 +43,36 @@ router.post('/signup', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-  console.log(req.body.values)
   try {
+    const foundUser = await User.findOne({
+      'email': req.body.values.email
+    })
+
+    if (!foundUser) {
+      res.status(404).send({
+        success: false,
+        message: 'Email does not exist'
+      })
+    }
+
+    if (!bcrypt.compareSync(req.body.values.password, foundUser.password)) {
+      res.status(409).send({
+        success: false,
+        message: 'Passwords do not match'
+      })
+    }
     
-  } catch {
+    // generate jwt
+
+    res.status(200).send({
+      success: true,
+      message: 'log in successfull'
+      // token
+    })
+  } catch (err) {
+    console.error(err)
+
+    // return an error
 
   }
 })

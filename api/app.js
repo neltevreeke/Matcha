@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
 var mongoose = require('mongoose');
 var UserModel = require('./models/User');
+var bcrypt = require('bcryptjs')
 
 var app = express();
 
@@ -31,11 +32,14 @@ connectDB()
   })
 
 const createStandardUser = async () => {
+  const salt = bcrypt.genSaltSync(10)
+  const hash = bcrypt.hashSync('lollol1', salt)
+
   const standardUser = new UserModel({
     firstName: 'Nelte',
     lastName: 'Vreeke',
     email: 'nelte.p.vreeke@gmail.com',
-    password: 'lollol',
+    password: hash,
     age: 25
   })
 

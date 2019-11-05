@@ -59,7 +59,7 @@ const validate = values => {
     return errors
 }
 
-const LoginForm = (props) => {
+const LoginForm = props => {
 
     const formik = useFormik({
         initialValues: {
@@ -67,12 +67,19 @@ const LoginForm = (props) => {
             password: ''
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values, { setStatus, setFieldValue}) => {
             axios.post('http://localhost:9000/user/login', {
                 values
             })
-            .then(res => res.json())
-            .then(res => console.log(res))
+            .then(() => {
+                props.hide()
+                document.location.href = 'http://localhost:3000/dashboard'
+            })
+            .catch(() => {
+                setStatus('Invalid email or password')
+                setFieldValue('email', '')
+                setFieldValue('password', '')
+            })
         },
     })
 
@@ -102,6 +109,7 @@ const LoginForm = (props) => {
             />
             {formik.touched.password && formik.errors.password ? <ErrorBox>{formik.errors.password}</ErrorBox> : null}
 
+            {formik.touched.email && formik.touched.password && formik.status ? <ErrorBox>{formik.status}</ErrorBox> : null}
             <Button type={'submit'} color={'white'} backgroundColor={'#63D397'}>submit</Button>
         </FormWrapper>
     )
