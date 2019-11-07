@@ -59,13 +59,14 @@ const validate = values => {
   return errors
 }
 
+const initialValues = {
+  email: process.env.NODE_ENV === 'development' ? 'nelte.p.vreeke@gmail.com' : '',
+  password: process.env.NODE_ENV === 'development' ? 'lollol1' : ''
+}
+
 const LoginForm = props => {
   const formik = useFormik({
-
-    initialValues: {
-      email: '',
-      password: ''
-    },
+    initialValues,
     validate,
     onSubmit: (values, { setStatus, setFieldValue }) => {
       axios.post('http://localhost:9000/user/login', {
