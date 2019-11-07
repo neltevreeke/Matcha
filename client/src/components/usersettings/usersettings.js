@@ -13,19 +13,19 @@ const UserSettings = styled.div`
 `
 
 export default () => {
-    const [active, setActive] = useState('user details');
+  const [active, setActive] = useState('user details')
 
-    return (
-        <>
-            <UserSettings>
-                <UserSettingsMenu setActive={setActive} />
-                {active === 'user details' && <UserDetails />}
-                {active === 'pictures' && <div>pictures</div>}
-                {active === 'interest tags' && <div>interest tags</div>}
-                {active === 'search filters' && <div>search filters</div>}
-                {active === 'location' && <div>location</div>}
-                {active === 'email notifications' && <div>email notifications</div>}
-            </UserSettings>  
-        </>
-    )
+  return (
+    <>
+      <UserSettings>
+        <UserSettingsMenu setActive={setActive} />
+        {active === 'user details' && <UserDetails />}
+        {active === 'pictures' && <div>pictures</div>}
+        {active === 'interest tags' && <div>interest tags</div>}
+        {active === 'search filters' && <div>search filters</div>}
+        {active === 'location' && <div>location</div>}
+        {active === 'email notifications' && <div>email notifications</div>}
+      </UserSettings>
+    </>
+  )
 }

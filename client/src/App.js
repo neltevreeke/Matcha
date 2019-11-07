@@ -4,13 +4,19 @@ import LandingPage from './components/pages/landingpage'
 import Dashboard from './components/pages/dashboard'
 
 export default () => {
-
   return (
-      <Router>
-        <Switch>
-          <Route exact path='/' component={LandingPage} />
-          <Route path='/dashboard' component={Dashboard} />
-        </Switch>
-      </Router>
+    <Router>
+      <Switch>
+        <Route
+          exact
+          path='/'
+          component={LandingPage}
+        />
+        <Route
+          path='/dashboard'
+          component={Dashboard}
+        />
+      </Switch>
+    </Router>
   )
 }

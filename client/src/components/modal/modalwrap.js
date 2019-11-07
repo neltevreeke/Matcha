@@ -51,22 +51,27 @@ const ModalContent = styled.div`
     padding: 24px;
 `
 
-const ModalWrap = ({title, hide, children}) => {
-
-    return ReactDOM.createPortal(
-        <ModalContainer>
-            <Modal>
-                <ModalHeader>
-                    <ModalHeadline color={'white'} text={title} />
-                    <i onClick={hide} className='fa fa-times'></i>
-                </ModalHeader>
-                <ModalContent>
-                    {children}
-                </ModalContent>
-            </Modal>
-        </ModalContainer>,
-        document.getElementById('modal-root')
-    )
+const ModalWrap = ({ title, hide, children }) => {
+  return ReactDOM.createPortal(
+    <ModalContainer>
+      <Modal>
+        <ModalHeader>
+          <ModalHeadline
+            color='white'
+            text={title}
+          />
+          <i
+            onClick={hide}
+            className='fa fa-times'
+          />
+        </ModalHeader>
+        <ModalContent>
+          {children}
+        </ModalContent>
+      </Modal>
+    </ModalContainer>,
+    document.getElementById('modal-root')
+  )
 }
 
 export default ModalWrap

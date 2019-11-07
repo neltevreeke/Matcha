@@ -32,36 +32,36 @@ const MenuItem = styled.div`
 `
 
 export default ({ setActive }) => {
-    return (
-        <Menu>
-            <MenuItem onClick={() => {setActive('user details')}}>
-                {/* <Link to={'/dashboard/profile/details'}> */}
-                    <i className={'fa fa-user'}></i>
+  return (
+    <Menu>
+      <MenuItem onClick={() => { setActive('user details') }}>
+        {/* <Link to={'/dashboard/profile/details'}> */}
+        <i className='fa fa-user' />
                     user details
-                {/* </Link> */}
-            </MenuItem>
-            <MenuItem onClick={() => {setActive('pictures')}}>
-                {/* <Link to={'/dashboard/profile/pictures'}> */}
-                    <i className={"fa fa-image"}></i>
+        {/* </Link> */}
+      </MenuItem>
+      <MenuItem onClick={() => { setActive('pictures') }}>
+        {/* <Link to={'/dashboard/profile/pictures'}> */}
+        <i className='fa fa-image' />
                     pictures
-                {/* </Link> */}
-            </MenuItem>
-            <MenuItem onClick={() => {setActive('interest tags')}}>
-                <i className={"fa fa-hashtag"}></i>
+        {/* </Link> */}
+      </MenuItem>
+      <MenuItem onClick={() => { setActive('interest tags') }}>
+        <i className='fa fa-hashtag' />
                 interest tags
-            </MenuItem>
-            <MenuItem onClick={() => {setActive('search filters')}}>
-                <i className={"fa fa-filter"}></i>
+      </MenuItem>
+      <MenuItem onClick={() => { setActive('search filters') }}>
+        <i className='fa fa-filter' />
                 search filters
-            </MenuItem>
-            <MenuItem onClick={() => {setActive('location')}}>
-                <i className={"fa fa-map"}></i>
+      </MenuItem>
+      <MenuItem onClick={() => { setActive('location') }}>
+        <i className='fa fa-map' />
                 location
-            </MenuItem>
-            <MenuItem onClick={() => {setActive('email notifications')}}>
-                <i className={"fa fa-bell"}></i>
+      </MenuItem>
+      <MenuItem onClick={() => { setActive('email notifications') }}>
+        <i className='fa fa-bell' />
                 email notifications
-            </MenuItem>
-        </Menu>
-    )
+      </MenuItem>
+    </Menu>
+  )
 }

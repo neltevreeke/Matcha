@@ -1,8 +1,7 @@
-import Formik from 'formik'
-import React, { useState, useEffect } from 'react'
+// TODO: import Formik from 'formik'
+import React from 'react'
 import styled from 'styled-components'
 import Button from '../button/button'
-import getMe from '../../utils/getme'
 
 const FormWrapper = styled.form`
     display: flex;
@@ -51,87 +50,97 @@ const Select = styled.select`
 `
 
 export default () => {
-    const [userInfo, setUserInfo] = useState();
-    // useEffect(() => {
- 
-    // }, []);
+  return (
+    <FormWrapper>
+      <Label>
+        First Name
+      </Label>
+      <input
+        name='firstName'
+        type='text'
+        // placeholder='Theresa'
+        id='updateFirstNameInput'
+        // onChange={formik.handleChange}
+        // onBlur={formik.handleBlur}
+        // value={formik.values.firstName}
+      />
 
-    const fetchUserData = async () => {
-        setUserInfo(await getMe());
-    }
+      <Label>
+        Last Name
+      </Label>
+      <input
+        name='lastName'
+        type='text'
+        // placeholder='Theresa'
+        id='updateLastNameInput'
+        // onChange={formik.handleChange}
+        // onBlur={formik.handleBlur}
+        // value={formik.values.lastName}
+      />
 
-    fetchUserData();
+      <Label>
+        Email
+      </Label>
+      <input
+        name='email'
+        type='email'
+        // placeholder='Theresa'
+        id='updateEmailInput'
+        // onChange={formik.handleChange}
+        // onBlur={formik.handleBlur}
+        // value={formik.values.email}
+      />
 
-    // const userInfo = await getMe()
+      <Label>
+        Age
+      </Label>
+      <input
+        name='age'
+        type='number'
+        // placeholder='27'
+        id='updateAgeInput'
+        min='18'
+        max='99'
+        // onChange={formik.handleChange}
+        // onBlur={formik.handleBlur}
+        // value={formik.values.age}
+      />
 
-    console.log(userInfo)
+      <Label>
+        Gender
+      </Label>
+      <Select
+        name='gender'
+        form='name of form'
+      >
+        <option value='male'>
+          Male
+        </option>
+        <option value='female'>
+          Female
+        </option>
+      </Select>
 
-    return (
-        <FormWrapper>
-            <Label>First Name</Label>
-            <input 
-                name='firstName'
-                type='text' 
-                // placeholder='Theresa' 
-                id='updateFirstNameInput'
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.firstName}
-            />
+      <Label>
+        Phonenumber
+      </Label>
+      <input
+        name='phonenumber'
+        type='number'
+        // placeholder='27'
+        id='updatePhonenumberInput'
+        // onChange={formik.handleChange}
+        // onBlur={formik.handleBlur}
+        // value={formik.values.age}
+      />
 
-            <Label>Last Name</Label>
-            <input 
-                name='lastName'
-                type='text' 
-                // placeholder='Theresa' 
-                id='updateLastNameInput'
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.lastName}
-            />
-
-            <Label>Email</Label>
-            <input 
-                name='email'
-                type='email' 
-                // placeholder='Theresa' 
-                id='updateEmailInput'
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.email}
-            />
-
-            <Label>Age</Label>
-            <input
-                name='age'
-                type='number'
-                // placeholder='27'
-                id='updateAgeInput'
-                min='18'
-                max='99'
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.age}
-            />
-
-            <Label>Gender</Label>
-            <Select name='gender' form='name of form'>
-                <option value='male'>Male</option>
-                <option value='female'>Female</option>
-            </Select>
-
-            <Label>Phonenumber</Label>
-            <input
-                name='phonenumber'
-                type='number'
-                // placeholder='27'
-                id='updatePhonenumberInput'
-                // onChange={formik.handleChange}
-                // onBlur={formik.handleBlur}
-                // value={formik.values.age}
-            />
-
-            <Button type={'submit'} color={'white'} backgroundColor={'#63D397'}>update</Button>
-        </FormWrapper>
-    )
+      <Button
+        type='submit'
+        color='white'
+        backgroundColor='#63D397'
+      >
+        update
+      </Button>
+    </FormWrapper>
+  )
 }

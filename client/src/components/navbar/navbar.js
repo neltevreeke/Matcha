@@ -17,13 +17,16 @@ const NavbarItems = styled.div`
 `
 
 export default ({ children }) => {
-
-    return (
-        <Navbar>
-            <Headline fontSize={'24px'} text={'Matcha'} color={'white'} />
-            <NavbarItems>
-                {children}
-            </NavbarItems>
-        </Navbar>
-    )
+  return (
+    <Navbar>
+      <Headline
+        fontSize='24px'
+        text='Matcha'
+        color='white'
+      />
+      <NavbarItems>
+        {children}
+      </NavbarItems>
+    </Navbar>
+  )
 }

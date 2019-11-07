@@ -40,13 +40,10 @@ const HoverMenu = styled.div`
     }
 `
 
-export default ({children, hide}) => {
-
-    return (
-        <HoverMenu onMouseLeave={
-            hide
-        }>
-            {children}
-        </HoverMenu>
-    )
+export default ({ children, onMouseLeave }) => {
+  return (
+    <HoverMenu onMouseLeave={onMouseLeave}>
+      {children}
+    </HoverMenu>
+  )
 }

@@ -18,13 +18,25 @@ const LandingPageContent = styled.div`
 `
 
 export default () => {
-    const textPlaceholder = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a metus vestibulum, aliquam dolor sed, venenatis libero.'
+  const textPlaceholder = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a metus vestibulum, aliquam dolor sed, venenatis libero.'
 
-    return (
-        <LandingPageContent>
-            <HeroItem iconClass={'fa fa-search'} headLineText={'search'} text={textPlaceholder} />
-            <HeroItem iconClass={'fa fa-crosshairs'} headLineText={'match'} text={textPlaceholder} />
-            <HeroItem iconClass={'fa fa-comments'} headLineText={'connect'} text={textPlaceholder}/>
-        </LandingPageContent>
-    )
+  return (
+    <LandingPageContent>
+      <HeroItem
+        iconClass='fa fa-search'
+        headLineText='search'
+        text={textPlaceholder}
+      />
+      <HeroItem
+        iconClass='fa fa-crosshairs'
+        headLineText='match'
+        text={textPlaceholder}
+      />
+      <HeroItem
+        iconClass='fa fa-comments'
+        headLineText='connect'
+        text={textPlaceholder}
+      />
+    </LandingPageContent>
+  )
 }

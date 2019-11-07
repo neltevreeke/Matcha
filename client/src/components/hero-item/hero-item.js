@@ -27,12 +27,14 @@ const HeroItem = styled.div`
 `
 
 export default (props) => {
-
-    return (
-        <HeroItem>
-            <i className={props.iconClass}></i>
-            <Headline text={props.headLineText} color={'#505050'}/>
-            <p>{props.text}</p>
-        </HeroItem>
-    )
+  return (
+    <HeroItem>
+      <i className={props.iconClass} />
+      <Headline
+        text={props.headLineText}
+        color='#505050'
+      />
+      <p>{props.text}</p>
+    </HeroItem>
+  )
 }

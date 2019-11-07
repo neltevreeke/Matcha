@@ -44,82 +44,86 @@ const ErrorBox = styled.div`
 `
 
 const validate = values => {
-    const errors = {}
+  const errors = {}
 
-    if (!values.email) {
-        errors.email = 'Email required'
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email'
-    }
+  if (!values.email) {
+    errors.email = 'Email required'
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email'
+  }
 
-    if (!values.password) {
-        errors.password = 'Password required'
-    }
+  if (!values.password) {
+    errors.password = 'Password required'
+  }
 
-    return errors
+  return errors
 }
 
 const LoginForm = props => {
+  const formik = useFormik({
 
-    const formik = useFormik({
-         
-        initialValues: {
-            email: '',
-            password: ''
-        },
-        validate,
-        onSubmit: (values, { setStatus, setFieldValue }) => {
-            axios.post('http://localhost:9000/user/login', {
-                values
-            })
-            .then(res => {
-                localStorage.setItem('jwt', res.data.token)
-                window.location.href = 'http://localhost:3000/dashboard'
-            })
-            .catch(err => {
-                if (err.response.data.message === 'Internal server error') {
-                    setStatus('Oops, something went wrong...')
-                }
+    initialValues: {
+      email: '',
+      password: ''
+    },
+    validate,
+    onSubmit: (values, { setStatus, setFieldValue }) => {
+      axios.post('http://localhost:9000/user/login', {
+        values
+      })
+        .then(res => {
+          localStorage.setItem('jwt', res.data.token)
+          window.location.href = 'http://localhost:3000/dashboard'
+        })
+        .catch(err => {
+          if (err.response.data.message === 'Internal server error') {
+            setStatus('Oops, something went wrong...')
+          }
 
-                if (err.response.data.message !== 'Internal server error') {
-                    setStatus('Invalid email or password')
-                    setFieldValue('email', '', false)
-                    setFieldValue('password', '', false)
-                }
-            })
-        },
-    })
+          if (err.response.data.message !== 'Internal server error') {
+            setStatus('Invalid email or password')
+            setFieldValue('email', '', false)
+            setFieldValue('password', '', false)
+          }
+        })
+    }
+  })
 
-    return (
-        <FormWrapper onSubmit={formik.handleSubmit}>
-            <Label htmlFor='email'>Email</Label>
-            <input
-                name='email'
-                type='email' 
-                placeholder='example@example.com'
-                id='loginEmailInput'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
-            />
-            {formik.touched.email && formik.errors.email ? <ErrorBox>{formik.errors.email}</ErrorBox> : null}
+  return (
+    <FormWrapper onSubmit={formik.handleSubmit}>
+      <Label htmlFor='email'>Email</Label>
+      <input
+        name='email'
+        type='email'
+        placeholder='example@example.com'
+        id='loginEmailInput'
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.email}
+      />
+      {formik.touched.email && formik.errors.email ? <ErrorBox>{formik.errors.email}</ErrorBox> : null}
 
-            <Label htmlFor='password'>Password</Label>
-            <input 
-                name='password'
-                type='password' 
-                placeholder='password'
-                id='loginPasswordInput'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-            />
-            {formik.touched.password && formik.errors.password ? <ErrorBox>{formik.errors.password}</ErrorBox> : null}
+      <Label htmlFor='password'>Password</Label>
+      <input
+        name='password'
+        type='password'
+        placeholder='password'
+        id='loginPasswordInput'
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.password}
+      />
+      {formik.touched.password && formik.errors.password ? <ErrorBox>{formik.errors.password}</ErrorBox> : null}
 
-            {formik.touched.email && formik.touched.password && formik.status ? <ErrorBox>{formik.status}</ErrorBox> : null}
-            <Button type={'submit'} color={'white'} backgroundColor={'#63D397'}>submit</Button>
-        </FormWrapper>
-    )
+      {formik.touched.email && formik.touched.password && formik.status ? <ErrorBox>{formik.status}</ErrorBox> : null}
+      <Button
+        type='submit'
+        color='white'
+        backgroundColor='#63D397'
+      >submit
+      </Button>
+    </FormWrapper>
+  )
 }
 
 export default LoginForm

@@ -10,11 +10,14 @@ const Headline = styled.h2`
     text-transform: lowercase;
 `
 
-export default ({fontSize, color, text, ...props}) => {
-
-    return (
-        <Headline fontSize={fontSize} color={color} {...props}>
-            {text}
-        </Headline>
-    )
+export default ({ fontSize, color, text, ...props }) => {
+  return (
+    <Headline
+      fontSize={fontSize}
+      color={color}
+      {...props}
+    >
+      {text}
+    </Headline>
+  )
 }

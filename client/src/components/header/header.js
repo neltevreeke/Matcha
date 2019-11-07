@@ -23,22 +23,38 @@ const HeaderContainer = styled.div`
 `
 
 export default () => {
-
-    return (
-        <>
-            <Header>
-                <HeaderContainer>
-                    <Headline color={'white'} fontSize={'48px'} text={'Your love might be closer than you think...'} />
-                    <ToggleContent 
-                    toggle={show => <Button onClick={show} color={'white'} border={true}>sign up</Button>}
-                    content={hide => (
-                        <Modal title='sign up' hide={hide}>
-                            <SignupForm />
-                        </Modal>
-                    )}
-                    />
-                </HeaderContainer>
-            </Header>
-        </>
-    )
+  return (
+    <Header>
+      <HeaderContainer>
+        <Headline
+          color='white'
+          fontSize='48px'
+          text='Your love might be closer than you think...'
+        />
+        <ToggleContent
+          toggle={(show) => {
+            return (
+              <Button
+                onClick={show}
+                color='white'
+                border
+              >
+                sign up
+              </Button>
+            )
+          }}
+          content={(hide) => {
+            return (
+              <Modal
+                title='sign up'
+                hide={hide}
+              >
+                <SignupForm />
+              </Modal>
+            )
+          }}
+        />
+      </HeaderContainer>
+    </Header>
+  )
 }

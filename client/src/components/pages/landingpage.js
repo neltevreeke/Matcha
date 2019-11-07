@@ -8,31 +8,60 @@ import Modal from '../modal/modalwrap'
 import LoginForm from '../forms/login-form'
 import SignupForm from '../forms/signup-form'
 
-
 export default () => {
-    return (
-        <>
-            <Navbar>
-                <ToggleContent
-                    toggle={show => <Button onClick={show} color={'white'} border={false}>log in</Button>}
-                    content={hide => (
-                        <Modal title='log in' hide={hide}>
-                            <LoginForm hide={hide} />
-                        </Modal>
-                    )}
-                />
+  return (
+    <>
+      <Navbar>
+        <ToggleContent
+          toggle={show => {
+            return (
+              <Button
+                onClick={show}
+                color='white'
+                border={false}
+              >
+                log in
+              </Button>
+            )
+          }}
+          content={hide => {
+            return (
+              <Modal
+                title='log in'
+                hide={hide}
+              >
+                <LoginForm hide={hide} />
+              </Modal>
+            )
+          }}
+        />
 
-                <ToggleContent 
-                    toggle={show => <Button onClick={show} color={'white'} border={true}>sign up</Button>}
-                    content={hide => (
-                        <Modal title='sign up' hide={hide}>
-                            <SignupForm hide={hide} />
-                        </Modal>
-                    )}
-                />
-            </Navbar>
-            <Header />
-            <LandingPageContent />
-        </>
-    )
+        <ToggleContent
+          toggle={show => {
+            return (
+              <Button
+                onClick={show}
+                color='white'
+                border
+              >
+                sign up
+              </Button>
+            )
+          }}
+          content={hide => {
+            return (
+              <Modal
+                title='sign up'
+                hide={hide}
+              >
+                <SignupForm hide={hide} />
+              </Modal>
+            )
+          }}
+        />
+      </Navbar>
+      <Header />
+      <LandingPageContent />
+    </>
+  )
 }
