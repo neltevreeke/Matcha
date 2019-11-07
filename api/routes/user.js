@@ -1,13 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose')
 var User = require('../models/User')
 var bcrypt = require('bcryptjs')
 var jwt = require('jsonwebtoken')
-
+var checkToken = require('../controllers/auth')
 
 router.get('/', function (req, res, next) {
-
   res.send('respond with a resource')
 })
 
@@ -21,7 +19,8 @@ router.post('/signup', async (req, res) => {
       lastName: req.body.values.lastName,
       email: req.body.values.email,
       password: hash,
-      age: req.body.values.age
+      age: req.body.values.age,
+      gender: req.body.values.gender
     })
   } catch (err) {
     res.status(409).send({
@@ -35,19 +34,25 @@ router.post('/signup', async (req, res) => {
   })
 })
 
+router.get('/me', checkToken, async (req, res) => {
+  delete req.decode.password
+
+  res.send({
+    user: req.decode
+  })
+})
+
 router.post('/login', async (req, res) => {
     let foundUser;
-
-    console.log('hereeeeeeeeeeeeeeeeeeeee')
 
     try {
       foundUser = await User.findOne({
         'email': req.body.values.email
       })
     } catch (err) {
-      res.status(500).send({
-        message: 'Internal server error'
-      });
+        res.status(500).send({
+          message: 'Internal server error'
+        });
     }
 
     if (!foundUser) {

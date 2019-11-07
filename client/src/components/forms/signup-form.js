@@ -42,6 +42,17 @@ const ErrorBox = styled.div`
     margin-bottom: 16px;
 `
 
+const Select = styled.select`
+    height: 41px;
+    outline: none;
+    color: #505050;
+    font-size: 14px;
+    border: 2px solid #C4C4C4;
+    background-color: white;
+    margin-bottom: 16px;
+    width: 120px;
+`
+
 const validate = values => {
     const errors = {}
 
@@ -79,6 +90,10 @@ const validate = values => {
         errors.age = 'Age is required'
     }
 
+    if (!values.gender) {
+        errors.gender = 'Gender is required'
+    }
+
     return errors
 }
 
@@ -91,10 +106,13 @@ const SignupForm = props => {
             email: '',
             password: '',
             repeatPassword: '',
-            age: ''
+            age: '',
+            gender: ''
         },
         validate,
         onSubmit: async (values, { setFieldValue, setStatus }) => {
+            console.log(values)
+
             axios.post('http://localhost:9000/user/signup', {
                 values
             })
@@ -184,6 +202,20 @@ const SignupForm = props => {
                 value={formik.values.age}
             />
             {formik.touched.age && formik.errors.age ? <ErrorBox>{formik.errors.age}</ErrorBox> : null}
+
+            <Label htmlFor='gender'>Gender</Label>
+            <Select 
+                as='select' 
+                name='gender'
+                component='select'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.gender}
+            >
+                <option value='male'>Male</option>
+                <option value='female'>Female</option>
+            </Select>
+            {formik.touched.gender && formik.errors.gender ? <ErrorBox>{formik.errors.gender}</ErrorBox> : null}
 
             <Button type={'submit'} color={'white'} backgroundColor={'#63D397'}>submit</Button>
         </FormWrapper>

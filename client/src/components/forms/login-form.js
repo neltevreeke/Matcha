@@ -74,7 +74,7 @@ const LoginForm = props => {
             })
             .then(res => {
                 localStorage.setItem('jwt', res.data.token)
-                document.location.href = 'http://localhost:3000/dashboard'
+                window.location.href = 'http://localhost:3000/dashboard'
             })
             .catch(err => {
                 if (err.response.data.message === 'Internal server error') {

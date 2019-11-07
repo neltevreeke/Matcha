@@ -1,11 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import Headline from '../headline/headline'
-import Button from '../button/button'
-import ToggleContent from '../modal/togglecontent'
-import Modal from '../modal/modalwrap'
-import LoginForm from '../forms/login-form'
-import SignupForm from '../forms/signup-form'
 
 const Navbar = styled.div`
     display: flex;
@@ -21,29 +16,13 @@ const NavbarItems = styled.div`
     align-items: center;
 `
 
-export default () => {
+export default ({ children }) => {
 
     return (
         <Navbar>
             <Headline fontSize={'24px'} text={'Matcha'} color={'white'} />
             <NavbarItems>
-                <ToggleContent
-                    toggle={show => <Button onClick={show} color={'white'} border={false}>log in</Button>}
-                    content={hide => (
-                        <Modal title='log in' hide={hide}>
-                            <LoginForm hide={hide} />
-                        </Modal>
-                    )}
-                />
-
-                <ToggleContent 
-                    toggle={show => <Button onClick={show} color={'white'} border={true}>sign up</Button>}
-                    content={hide => (
-                        <Modal title='sign up' hide={hide}>
-                            <SignupForm hide={hide} />
-                        </Modal>
-                    )}
-                />
+                {children}
             </NavbarItems>
         </Navbar>
     )
