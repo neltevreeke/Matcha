@@ -8,9 +8,7 @@ const getMe = async () => {
         }
     })
 
-    console.log(res)
-    
-    return res.data.user
+    return res
 }
 
 export default getMe

@@ -111,8 +111,6 @@ const SignupForm = props => {
         },
         validate,
         onSubmit: async (values, { setFieldValue, setStatus }) => {
-            console.log(values)
-
             axios.post('http://localhost:9000/user/signup', {
                 values
             })

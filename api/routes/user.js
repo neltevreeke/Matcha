@@ -23,10 +23,9 @@ router.post('/signup', async (req, res) => {
       gender: req.body.values.gender
     })
   } catch (err) {
-    res.status(409).send({
-      success: false,
-      message: err.keyPattern
-    })
+      res.status(409).send({
+        message: err.keyPattern
+      })
   }
 
   res.status(201).send({
@@ -37,7 +36,7 @@ router.post('/signup', async (req, res) => {
 router.get('/me', checkToken, async (req, res) => {
   delete req.decode.password
 
-  res.send({
+  res.status(200).send({
     user: req.decode
   })
 })

@@ -1,5 +1,5 @@
 import Formik from 'formik'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Button from '../button/button'
 import getMe from '../../utils/getme'
@@ -49,9 +49,20 @@ const Select = styled.select`
     margin-bottom: 16px;
     width: 120px;
 `
-    
-export default async () => {
-    const userInfo = await getMe()
+
+export default () => {
+    const [userInfo, setUserInfo] = useState();
+    // useEffect(() => {
+ 
+    // }, []);
+
+    const fetchUserData = async () => {
+        setUserInfo(await getMe());
+    }
+
+    fetchUserData();
+
+    // const userInfo = await getMe()
 
     console.log(userInfo)
 
